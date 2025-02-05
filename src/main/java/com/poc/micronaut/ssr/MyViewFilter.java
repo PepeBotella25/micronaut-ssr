@@ -13,6 +13,8 @@ import io.micronaut.views.*;
 import jakarta.inject.Inject;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscription;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
@@ -26,6 +28,8 @@ import java.util.Optional;
 @Requires(beans = ViewsResolver.class)
 @Filter(Filter.MATCH_ALL_PATTERN)
 public class MyViewFilter implements HttpServerFilter {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MyViewFilter.class);
 
     private static final MediaType UTF8_HTML = new MediaType(MediaType.TEXT_HTML, Map.of(MediaType.CHARSET_PARAMETER, "UTF-8"));
 
@@ -49,6 +53,9 @@ public class MyViewFilter implements HttpServerFilter {
 
                     String view = viewsResolver.resolveView(request, response).orElse(null);
                     if (view == null || !view.equals("App")) {
+                        if(view != null) {
+                            LOG.info(String.format("Skipping MyViewFilter due to view name \"%s\" is not \"App\" for %s", view, request.getPath()));
+                        }
                         return Flux.just(response);
                     }
 
@@ -57,6 +64,8 @@ public class MyViewFilter implements HttpServerFilter {
                     if(optionalViewsRenderer.isEmpty()) {
                         return Flux.just(response);
                     }
+
+                    LOG.info(String.format("Using MyViewFilter for %s", request.getPath()));
 
                     ModelAndView<?> modelAndView = new ModelAndView<>(view, body instanceof ModelAndView ? ((ModelAndView<?>) body).getModel().orElse(null) : body);
                     viewsModelDecorator.decorate(request, modelAndView);
