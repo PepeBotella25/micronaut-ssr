@@ -24,9 +24,9 @@ public class MyController {
 
     @Produces(MediaType.TEXT_HTML)
     @Get("/broken")
-    @View("App")
+    @View("OtherApp")
     public Mono<SsrData> broken() {
-        // Using @View to go through micronaut ViewFilter and not through MyViewFilter
+        // Using @View("OtherApp") to go through micronaut ViewFilter and not through MyViewFilter
         return Mono.just(new SsrData("The Name"));
     }
 
