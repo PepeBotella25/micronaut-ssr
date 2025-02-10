@@ -19,7 +19,7 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     testImplementation("io.micronaut:micronaut-http-client")
 
-    implementation("io.micronaut.views:micronaut-views-react:5.4.4")
+    implementation("io.micronaut.views:micronaut-views-react")
     implementation("org.graalvm.polyglot:polyglot:24.1.1")
     implementation("org.graalvm.polyglot:js:24.1.1")
     implementation("io.projectreactor:reactor-tools:3.6.10")
