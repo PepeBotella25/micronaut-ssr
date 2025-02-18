@@ -9,6 +9,11 @@ group = "com.poc.micronaut.ssr"
 
 repositories {
     mavenCentral()
+    mavenLocal {
+        mavenContent {
+            snapshotsOnly()
+        }
+    }
 }
 
 dependencies {
@@ -18,14 +23,14 @@ dependencies {
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     testImplementation("io.micronaut:micronaut-http-client")
-
-    implementation("io.micronaut.views:micronaut-views-react:5.4.4")
-    implementation("org.graalvm.polyglot:polyglot:24.1.1")
-    implementation("org.graalvm.polyglot:js:24.1.1")
+    implementation("io.micronaut.views:micronaut-views-core:5.7.1-SNAPSHOT")
+    implementation("io.micronaut.views:micronaut-views-react:5.7.1-SNAPSHOT")
+    implementation("org.graalvm.polyglot:polyglot:24.1.2")
+    implementation("org.graalvm.polyglot:js:24.1.2")
     implementation("io.projectreactor:reactor-tools:3.6.10")
     implementation("io.micronaut:micronaut-http-client")
-}
 
+}
 
 application {
     mainClass = "com.poc.micronaut.ssr.Application"

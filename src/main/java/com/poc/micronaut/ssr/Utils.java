@@ -24,13 +24,10 @@ public class Utils {
         Utils.client = client;
     }
 
-    @Inject
-    public static Promise fetch(String url)
-    {
+    public static Promise fetch(String url) {
         var internalRequest = HttpRequest
                 .create(HttpMethod.GET, API_URL + url)
                 .accept(MediaType.TEXT_PLAIN);
-
         return new Promise(Mono.from(client.exchange(internalRequest))
                 .map(response -> response.body().toString(Charset.defaultCharset())));
     }
