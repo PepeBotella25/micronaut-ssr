@@ -1,4 +1,3 @@
-
 function getSsrUtils() {
     return Java.type("com.poc.micronaut.ssr.Utils");
 }
@@ -6,5 +5,5 @@ function getSsrUtils() {
 export const fetch = async ({ url }) => {
     const { fetch } = getSsrUtils();
     const { onPromiseCreation } = fetch(url);
-    return await new Promise(onPromiseCreation);
+    return new Promise(onPromiseCreation);
 };

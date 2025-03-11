@@ -6,8 +6,9 @@ import { fetch } from "./utils";
 export async function ssr(_component, props, callback) {
     const { name } = props;
 
-    const data = await fetch({ url: "hello/data" });
-    const ssr = render(h(App, { name, data }));
-
-    callback.write(ssr);
+    fetch({ url: "hello/data" }).then((data) => {
+        const ssr = render(h(App, { name, data }));
+        callback.write(ssr);
+        callback.complete();
+    });
 }
